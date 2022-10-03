@@ -25,6 +25,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
         with:
+          repository: FlightControl-Master/MOOSE_INCLUDE
+          ref: develop
           path: ./MooseFiles
 
       # Runs a single command using the runners shell
