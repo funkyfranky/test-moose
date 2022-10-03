@@ -33,8 +33,13 @@ jobs:
       - name: Check Moose files
         run: ls ./MooseFiles
 
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+        with:
+          path: ./Missions
+
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-          echo test, and deploy your project.
+          ls ./Missions
