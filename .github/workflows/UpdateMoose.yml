@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BRANCH: develop
+      MYBRANCH: develop
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -31,12 +31,15 @@ jobs:
         run: |
           echo ${GITHUB_REF_NAME}
 
-      - name: Check if main
-        if: github.ref_name=='main'
-        run: $BRANCH="main"
+      #- name: Check if main
+      #  if: github.ref_name=='main'
+      #  run: $BRANCH="main"
 
       - name: Say branch name
-        run: echo $BRANCH
+        run: echo $MYBRANCH
+
+      - name: Unzip File
+        run: unzip "Auftrag - 014 - Bombing.miz" -d mission
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
@@ -58,5 +61,4 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-          echo ${GITHUB_REF##*/}
           ls ./Missions
