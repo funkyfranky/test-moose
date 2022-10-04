@@ -32,7 +32,7 @@ jobs:
           echo ${GITHUB_REF_NAME}
 
       - name: Check if main
-        if: ${GITHUB_REF_NAME}=='main'
+        if: github.ref_name=='main'
         run: $BRANCH="main"
 
       - name: Say branch name
