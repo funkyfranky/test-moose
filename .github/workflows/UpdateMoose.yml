@@ -22,17 +22,21 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
+    evn:
+      BRANCH: develop
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: Check branch
         run: |
           echo ${GITHUB_REF_NAME}
 
-      - name: Condition
+      - name: Check if main
         if: ${GITHUB_REF_NAME}=='main'
-        run: echo I am main!
-        if: ${GITHUB_REF_NAME}!='main'
-        run: echo I am NOT main!
+        run: $BRANCH="main"
+
+      - name: Say branch name
+        run: echo $BRANCH
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
