@@ -38,9 +38,6 @@ jobs:
       - name: Say branch name
         run: echo $MYBRANCH
 
-      - name: Unzip File
-        run: unzip "Auftrag - 014 - Bombing.miz" -d mission
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
         with:
@@ -62,3 +59,8 @@ jobs:
         run: |
           echo Add other actions to build,
           ls ./Missions
+
+      - name: Unzip File
+        run: |
+          ls
+          unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
