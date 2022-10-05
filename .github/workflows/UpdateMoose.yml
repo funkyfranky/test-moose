@@ -31,9 +31,9 @@ jobs:
         run: |
           echo ${GITHUB_REF_NAME}
 
-      #- name: Check if main
-      #  if: github.ref_name=='main'
-      #  run: $BRANCH="main"
+      - name: Check if main
+        if: ${{github.ref_name=='main'}}
+        run: echo I am main as checked by github.ref_name
 
       - name: Say branch name
         run: echo $MYBRANCH
