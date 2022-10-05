@@ -38,13 +38,13 @@ jobs:
         run: echo $BRANCH
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      #- name: Checkout MOOSE_INCLUDE        
-      #- uses: actions/checkout@v3
-      #  if: ${{ false }}
-      #  with:
-      #    repository: FlightControl-Master/MOOSE_INCLUDE
-      #    ref: develop
-      #    path: ./MooseFiles
+      - name: Checkout MOOSE_INCLUDE        
+      - uses: actions/checkout@v3
+        if: ${{ false }}
+        with:
+          repository: FlightControl-Master/MOOSE_INCLUDE
+          ref: develop
+          path: ./MooseFiles
 
       # Runs a single command using the runners shell
       #- name: Check Moose files
