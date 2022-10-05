@@ -1,5 +1,4 @@
 # This is a basic workflow to help you get started with Actions
-
 name: Update Moose.lua
 
 # Controls when the workflow will run
@@ -38,13 +37,9 @@ jobs:
       - name: Say branch name
         run: echo $BRANCH
 
-      - name: Set branch name
-        run: echo "test" > $BRANCH
-
-      - name: Say branch name again
-        run: echo $BRANCH
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout MOOSE_INCLUDE
+        if: ${{ false }}
       - uses: actions/checkout@v3
         with:
           repository: FlightControl-Master/MOOSE_INCLUDE
@@ -56,6 +51,7 @@ jobs:
         run: ls ./MooseFiles
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout Self
       - uses: actions/checkout@v3
         with:
           path: ./Missions
@@ -67,6 +63,7 @@ jobs:
           ls ./Missions
 
       - name: Unzip File
+        if: ${{ flase }}
         run: |
           ls
           unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
