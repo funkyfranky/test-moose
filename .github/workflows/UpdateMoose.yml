@@ -34,7 +34,14 @@ jobs:
         if: ${{github.ref_name=='main'}}
         run: echo I am main as checked by github.ref_name
 
-      - name: Say branch name
+      - name: Say BRANCH name
+        run: echo $BRANCH
+
+      - name: Change BRANCH
+        env:
+          BRANCH: main
+        
+      - name: Say BRANCH name again
         run: echo $BRANCH
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
