@@ -63,7 +63,7 @@ jobs:
           ls ./Missions
 
       - name: Unzip File
-        if: ${{ flase }}
+        if: ${{ false }}
         run: |
           ls
           unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
