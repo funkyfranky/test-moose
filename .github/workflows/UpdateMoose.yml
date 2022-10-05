@@ -53,8 +53,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Self
         uses: actions/checkout@v3
-        with: ${{ env.BRANCH }}
-        path: ./Missions_main
+        with: 
+          ref: ${{ env.BRANCH }}
+          path: ./Missions_main
 
       
 
