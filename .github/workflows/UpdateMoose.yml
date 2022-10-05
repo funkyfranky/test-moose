@@ -38,26 +38,32 @@ jobs:
         run: echo $BRANCH
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout MOOSE_INCLUDE        
-      - uses: actions/checkout@v3
-        if: ${{ false }}
-        with:
-          repository: FlightControl-Master/MOOSE_INCLUDE
-          ref: develop
-          path: ./MooseFiles
+      #- name: Checkout MOOSE_INCLUDE        
+      #- uses: actions/checkout@v3
+      #  if: ${{ false }}
+      #  with:
+      #    repository: FlightControl-Master/MOOSE_INCLUDE
+      #    ref: develop
+      #    path: ./MooseFiles
 
       # Runs a single command using the runners shell
-      - name: Check Moose files
-        run: ls ./MooseFiles
+      #- name: Check Moose files
+      #  run: ls ./MooseFiles
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout Self
-      - uses: actions/checkout@v3
-        with:
-          path: ./Missions
+      #- name: Checkout Self
+      #- uses: actions/checkout@v3
+      #  with:
+      #    path: ./Missions
 
       # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          ls ./Missions
+      #- name: Run a multi-line script
+      #  run: |
+      #    echo Add other actions to build,
+      #    ls ./Missions
+
+      #- name: Unzip File        
+      #  if: ${{ false }}
+      #  run: |
+      #    ls
+      #    unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
