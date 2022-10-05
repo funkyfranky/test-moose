@@ -22,7 +22,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BRANCH: develop2
+      BRANCH: develop
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -40,7 +40,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout MOOSE_INCLUDE        
         uses: actions/checkout@v3
-        #if: ${{ false }}
+        if: ${{ false }}
         with:
           repository: FlightControl-Master/MOOSE_INCLUDE
           ref: develop
@@ -51,16 +51,16 @@ jobs:
       #  run: ls ./MooseFiles
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      #- name: Checkout Self
-      #- uses: actions/checkout@v3
-      #  with:
-      #    path: ./Missions
+      - name: Checkout Self
+        uses: actions/checkout@v3
+        with: $BRANCH
+        path: ./Missions
 
       # Runs a set of commands using the runners shell
-      #- name: Run a multi-line script
-      #  run: |
-      #    echo Add other actions to build,
-      #    ls ./Missions
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          ls ./Missions
 
       #- name: Unzip File        
       #  if: ${{ false }}
