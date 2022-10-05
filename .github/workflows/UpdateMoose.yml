@@ -62,8 +62,8 @@ jobs:
           echo Add other actions to build,
           ls ./Missions
 
-      - name: Unzip File
-        if: ${{ false }}
-        run: |
-          ls
-          unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
+#      - name: Unzip File        
+#        if: ${{ false }}
+#        run: |
+#          ls
+#          unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
