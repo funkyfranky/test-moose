@@ -38,9 +38,9 @@ jobs:
         run: echo $BRANCH
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout MOOSE_INCLUDE
-        if: ${{ false }}
+      - name: Checkout MOOSE_INCLUDE        
       - uses: actions/checkout@v3
+        if: ${{ false }}
         with:
           repository: FlightControl-Master/MOOSE_INCLUDE
           ref: develop
