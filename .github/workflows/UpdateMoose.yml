@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      MYBRANCH: develop
+      BRANCH: develop
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -36,7 +36,13 @@ jobs:
         run: echo I am main as checked by github.ref_name
 
       - name: Say branch name
-        run: echo $MYBRANCH
+        run: echo $BRANCH
+
+      - name: Set branch name
+        run: echo "hallo_da" > $BRANCH
+
+      - name: Say branch name again
+        run: echo $BRANCH
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
