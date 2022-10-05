@@ -39,7 +39,7 @@ jobs:
         run: echo $BRANCH
 
       - name: Set branch name
-        run: echo "hallo_da" > $BRANCH
+        run: echo "test2" > $BRANCH
 
       - name: Say branch name again
         run: echo $BRANCH
