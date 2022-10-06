@@ -37,13 +37,6 @@ jobs:
       - name: Say BRANCH name
         run: echo $BRANCH
 
-      - name: Change BRANCH
-        env:
-          BRANCH: main
-        
-      - name: Say BRANCH name again
-        run: echo $BRANCH
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout MOOSE_INCLUDE        
         uses: actions/checkout@v3
