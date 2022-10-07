@@ -68,7 +68,9 @@ jobs:
       #    ls ./Missions
 
       - name: Run check.sh
-        run: sh ./check.sh
+        run: |
+          cd ./self
+          sh ./check.sh
 
       #- name: Unzip File        
       #  if: ${{ false }}
