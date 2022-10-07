@@ -67,11 +67,15 @@ jobs:
       #    echo Add other actions to build,
       #    ls ./Missions
 
+      - name: Run check.sh
+        run: sh ./check.sh
+
       #- name: Unzip File        
       #  if: ${{ false }}
       #  run: |
       #    ls
       #    unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
+      
       
       - name: Create report file
         run: date +%s > ./self/report.txt
@@ -79,6 +83,7 @@ jobs:
       - name: Commit report
         run: |
           cd ./self
+          git add *
           git config --global user.name 'funkyfranky'
           git config --global user.email 'frank@inter-zone.de'
           git commit -am "Automated report"
