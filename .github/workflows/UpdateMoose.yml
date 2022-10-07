@@ -74,10 +74,11 @@ jobs:
       #    unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
       
       - name: Create report file
-        run: date +%s > report.txt
+        run: date +%s > ./self/report.txt
       
       - name: Commit report
         run: |
+          cd ./self
           git config --global user.name 'funkyfranky'
           git config --global user.email 'frank@inter-zone.de'
           git commit -am "Automated report"
