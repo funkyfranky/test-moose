@@ -40,15 +40,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout MOOSE_INCLUDE        
         uses: actions/checkout@v3
-        if: ${{ false }}
+        #if: ${{ false }}
         with:
           repository: FlightControl-Master/MOOSE_INCLUDE
           ref: develop
           path: ./MooseFiles
 
       # Runs a single command using the runners shell
-      #- name: Check Moose files
-      #  run: ls ./MooseFiles
+      - name: Check Moose files
+        run: ls ./MooseFiles
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Self
@@ -72,3 +72,13 @@ jobs:
       #  run: |
       #    ls
       #    unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
+      
+      - name: Create report file
+        run: date +%s > report.txt
+      
+      - name: Commit report
+        run: |
+          git config --global user.name 'Your Name'
+          git config --global user.email 'your-username@users.noreply.github.com'
+          git commit -am "Automated report"
+          git push      
