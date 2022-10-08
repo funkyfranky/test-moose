@@ -1,24 +1,48 @@
 import glob
+from pathlib import Path
 from zipfile import ZipFile
+from shutil  import rmtree, copy
 
 moose="./Moose/Moose.lua"
+Moose=Path(moose)
 
-for f in glob.glob('./**/*.miz', recursive=True):
+missions="./"
+Missions=Path(missions)
+
+temp="temp/"
+Temp=Path(temp)
+
+
+for f in Missions.rglob("*.miz"):
+
+    # Print file name.
     print(f)
 
-    with ZipFile(f, mode='r') as zipObj:
-        zipObj.printdir()
-        for filename in zipObj.namelist():
-            print(filename)
+    # Try to delete temp folder.
+    try:
+        rmtree(temp)
+    except:
+        pass
+    
+    # Extract all the contents of zip file in different directory
+    with ZipFile(f, mode='r') as miz:
+        miz.extractall(temp)
 
-    with ZipFile(f, mode='a') as zipObj:
-        zipObj.write(moose, arcname="./l10n/DEFAULT/Moose.lua")
+    # Copy Moose.lua to temp dir.
+    copy(moose, Temp.joinpath("l10n/DEFAULT/"))
 
-    with ZipFile(f, mode='r') as zipObj:
-        zipObj.printdir()
-        for filename in zipObj.namelist():
-            print(filename)
+    # Create new miz file
+    with ZipFile(f, mode='w') as archive:
+        for file_path in Temp.rglob("*"):
+            archive.write(file_path, arcname=file_path.relative_to(temp))
 
-    with ZipFile(f, mode='r') as zipObj:
-        # Extract all the contents of zip file in different directory
-        zipObj.extractall('temp')
+    try:
+        rmtree(temp)
+    except:
+        pass
+
+    if True:
+        with ZipFile(f, mode='r') as zipObj:
+            zipObj.printdir()
+            #for filename in zipObj.namelist():
+            #    print(filename)
