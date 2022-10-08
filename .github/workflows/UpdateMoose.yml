@@ -80,7 +80,7 @@ jobs:
       
       
       - name: Create report file
-        run: date +%s > ./self/report.txt
+        run: date +%s > ./self/report2.txt
       
       - name: Commit report
         run: |
