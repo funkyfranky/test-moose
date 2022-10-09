@@ -77,7 +77,11 @@ jobs:
       #  run: |
       #    ls
       #    unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
-      
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9' # install the python version needed      
       
       - name: Create report file
         run: date +%s > ./self/report2.txt
