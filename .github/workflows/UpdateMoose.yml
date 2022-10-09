@@ -15,8 +15,8 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
 
-  # This workflow contains a single job called "build"
-  build:
+  # This workflow contains a single job called "Update"
+  Update:
 
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -26,6 +26,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
       - name: Check branch
         run: |
           echo ${GITHUB_REF_NAME}
@@ -46,10 +47,6 @@ jobs:
           ref: develop
           path: ./MooseFiles
 
-      # Runs a single command using the runners shell
-      - name: Check Moose files
-        run: ls ./MooseFiles
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout Self
         uses: actions/checkout@v3
@@ -57,32 +54,20 @@ jobs:
           ref: ${{ env.BRANCH }}
           path: ./self
 
-      # List self directory
-      - name: Check Moose files
-        run: ls ./self
-
-      # Runs a set of commands using the runners shell
-      #- name: Run a multi-line script
-      #  run: |
-      #    echo Add other actions to build,
-      #    ls ./Missions
-
-      - name: Run check.sh
-        run: |
-          cd ./self
-          sh ./check.sh
-
-      #- name: Unzip File        
-      #  if: ${{ false }}
-      #  run: |
-      #    ls
-      #    unzip "./Missions/Auftrag - 014 - Bombing.miz" -d mission
-
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9' # install the python version needed      
-      
+
+      # List self directory
+      - name: Check Moose files
+        run: ls ./self
+
+      - name: Run check.sh
+        run: |
+          cd ./self
+          python check.py ../MooseFiles/Moose_Include_Static/ ./
+
       - name: Create report file
         run: date +%s > ./self/report2.txt
       
