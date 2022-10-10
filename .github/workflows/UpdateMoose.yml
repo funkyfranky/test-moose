@@ -33,11 +33,15 @@ jobs:
           echo ${GITHUB_REF_NAME}
 
       - name: Check if main
-        if: ${{github.ref_name=='main'}}
-        run: echo I am main as checked by github.ref_name
+        if: ${{ github.ref_name=='main' }}
+        run: echo "MOOSE_BRANCH=master" >> $GITHUB_ENV
 
-      - name: Say BRANCH name
-        run: echo $BRANCH
+      - name: Check if develop
+        if: ${{ github.ref_name=='develop' }}
+        run: echo "MOOSE_BRANCH=master" >> $GITHUB_ENV
+
+      - name: Say MOOSE_BRANCH name
+        run: echo $MOOSE_BRANCH
 
       # Checks-out MOOSE_INCLUDE to ./MooseFiles
       - name: Checkout MOOSE_INCLUDE        
@@ -45,14 +49,14 @@ jobs:
         #if: ${{ false }}
         with:
           repository: FlightControl-Master/MOOSE_INCLUDE
-          ref: develop
+          ref: ${{ env.MOOSE_BRANCH }}
           path: ./MooseFiles
 
       # Checks-out repository to ./self
       - name: Checkout Missions
         uses: actions/checkout@v3
         with: 
-          ref: ${{ env.BRANCH }}
+          #ref: ${{ env.BRANCH }}
           path: ./self
 
       # Install python
