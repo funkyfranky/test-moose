@@ -18,9 +18,10 @@ jobs:
   # This workflow contains a single job called "Update"
   Update:
 
-    # The type of runner that the job will run on
+    # Operating system
     runs-on: ubuntu-latest
 
+    # Set environment variable.
     env:
       BRANCH: main
 
@@ -38,7 +39,7 @@ jobs:
       - name: Say BRANCH name
         run: echo $BRANCH
 
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out MOOSE_INCLUDE to ./MooseFiles
       - name: Checkout MOOSE_INCLUDE        
         uses: actions/checkout@v3
         #if: ${{ false }}
@@ -47,29 +48,31 @@ jobs:
           ref: develop
           path: ./MooseFiles
 
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Checkout Self
+      # Checks-out repository to ./self
+      - name: Checkout Missions
         uses: actions/checkout@v3
         with: 
           ref: ${{ env.BRANCH }}
           path: ./self
 
+      # Install python
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9' # install the python version needed      
+          python-version: '3.10' # install the python version needed
 
       # List self directory
       - name: Check Moose files
         run: ls ./self
 
-      - name: Run check.sh
+      # Run python script to update Moose.lua in all miz files
+      - name: Run UpdateMoose.py
         run: |
           cd ./self
-          python check.py ../MooseFiles/Moose_Include_Static/ ./
+          python .scripts/UpdateMoose.py ../MooseFiles/Moose_Include_Static/ ./
 
       - name: Create report file
-        run: date +%s > ./self/report2.txt
+        run: date +%s > ./self/report.txt
       
       - name: Commit report
         run: |
