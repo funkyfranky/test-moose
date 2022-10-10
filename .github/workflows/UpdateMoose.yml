@@ -45,7 +45,7 @@ jobs:
 
       - name: Check if develop
         if: ${{ github.ref_name=='develop' }}
-        run: echo "MOOSE_BRANCH=master" >> $GITHUB_ENV
+        run: echo "MOOSE_BRANCH=develop" >> $GITHUB_ENV
 
       - name: Say MOOSE_BRANCH name
         run: echo $MOOSE_BRANCH
