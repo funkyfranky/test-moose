@@ -16,13 +16,10 @@ import argparse
 
 def update(f: Path, MooseLua: Path, Temp: Path):
     """
-    Update the Moose.lua file in given file
+    Update the Moose.lua file in given file.
     """
     # Print file name.
-    print("hallo")
-    print(f)
-    print(f.parent)
-    print("----")
+    print(f"Updating file: {f}")
 
     # Extract all the contents of zip file in different directory
     with ZipFile(f, mode='r') as miz:
@@ -34,11 +31,12 @@ def update(f: Path, MooseLua: Path, Temp: Path):
     # Script file.
     ScriptFile=ScriptDir / Path(f.stem + ".lua")
 
-    print(f"scriptfile: {ScriptFile}")
-
     #Copy script file to directory.
     if ScriptFile.is_file():
+        print(f"Copying script file {ScriptFile} to {f.parent}")
         copy(ScriptFile, f.parent)
+    else:
+        print(f"Warning: expected script file {ScriptFile} does NOT exist in miz file!")
 
     # Copy Moose.lua to temp dir.
     copy(MooseLua, ScriptDir)
@@ -48,17 +46,21 @@ def update(f: Path, MooseLua: Path, Temp: Path):
         for file_path in Temp.rglob("*"):
             archive.write(file_path, arcname=file_path.relative_to(Temp))
 
+    # Remove temp dir.
     try:
         rmtree(Temp)
     except:
         pass
 
+    # Debug info.
     if False:
         with ZipFile(f, mode='r') as zipObj:
             zipObj.printdir()
             #for filename in zipObj.namelist():
             #    print(filename)
 
+    # Done.
+    print("--------------")
 
 if __name__ == '__main__':
 
@@ -104,5 +106,4 @@ if __name__ == '__main__':
     # Loop over all miz files (recursively)
     print("\nMiz files:\n----------")
     for f in Missions.rglob("*.miz"):
-        print(f.name)
         update(f, MooseLua, Temp)
