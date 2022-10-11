@@ -1,8 +1,8 @@
 """
 This script finds all miz files and updates the contained Moose.lua from a given one.
 It also extracts the contained mission script and places it next to the miz file.
-Here we assume that the file name is the same as the directory name, e.g.
-"Auftrag - 10 - Arty.lua" if the directories names is "Auftrag - 10 - Arty/"
+Here we assume that the stem of the file name is the same as the directory name, e.g.
+"Auftrag - 10 - Arty.lua" if the miz file name is "Auftrag - 10 - Arty.miz"
 
 This script is supposed to be run from, e.g., github actions when a new demo mission is
 uploaded.
@@ -39,7 +39,7 @@ def update(f: Path, MooseLua: Path, Temp: Path):
         print(f"Warning: expected script file {ScriptFile} does NOT exist in miz file!")
 
     # Copy Moose.lua to temp dir.
-    copy(MooseLua, ScriptDir)
+    copy(MooseLua, ScriptDir/"Moose.lua")
 
     # Create new miz file
     with ZipFile(f, mode='w') as archive:
@@ -81,11 +81,11 @@ if __name__ == '__main__':
     Moose=Path(args.MoosePath)
 
     # Moose.lua file
-    MooseLua=Moose / "Moose.lua"
+    MooseLua=Moose/"Moose_.lua"
 
     # Check that Moose.lua exists
     if MooseLua.exists():
-        print("Moose.lua exists")
+        print("Moose_.lua exists")
         with open(MooseLua) as myfile:
             head = [next(myfile) for x in range(1)]
         print(head) 
