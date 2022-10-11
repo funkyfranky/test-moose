@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# This workflow updates the Moose.lua file in all miz files.
 name: Update Moose.lua
 
 # Controls when the workflow will run
@@ -8,12 +8,14 @@ on:
   push:
     branches:
       - main
+      - master
       - develop
 
   # Triggers the workflow on pull request events for the "main" and "develop" branches
   pull_request:
     branches:
       - main
+      - master
       - develop
 
   # Allows you to run this workflow manually from the Actions tab
@@ -28,32 +30,39 @@ jobs:
     # Operating system
     runs-on: ubuntu-latest
 
-    # Set environment variable.
+    # Set environment variable (not used)
     env:
       BRANCH: main
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-      - name: Check branch
-        run: |
-          echo ${GITHUB_REF_NAME}
+      # Say Mission branch name
+      - name: Mission branch
+        run: echo ${GITHUB_REF_NAME}
 
+      # Check if main
       - name: Check if main
         if: ${{ github.ref_name=='main' }}
         run: echo "MOOSE_BRANCH=master" >> $GITHUB_ENV
 
+      # Check if master
+      - name: Check if master
+        if: ${{ github.ref_name=='master' }}
+        run: echo "MOOSE_BRANCH=master" >> $GITHUB_ENV
+
+      # Check if develop
       - name: Check if develop
         if: ${{ github.ref_name=='develop' }}
         run: echo "MOOSE_BRANCH=develop" >> $GITHUB_ENV
 
-      - name: Say MOOSE_BRANCH name
+      # Say Moose branch name.
+      - name: Moose branch name
         run: echo $MOOSE_BRANCH
 
       # Checks-out MOOSE_INCLUDE to ./MooseFiles
       - name: Checkout MOOSE_INCLUDE        
         uses: actions/checkout@v3
-        #if: ${{ false }}
         with:
           repository: FlightControl-Master/MOOSE_INCLUDE
           ref: ${{ env.MOOSE_BRANCH }}
@@ -72,24 +81,18 @@ jobs:
         with:
           python-version: '3.10' # install the python version needed
 
-      # List self directory
-      - name: Check Moose files
-        run: ls ./self
-
       # Run python script to update Moose.lua in all miz files
       - name: Run UpdateMoose.py
         run: |
           cd ./self
           python .scripts/UpdateMoose.py ../MooseFiles/Moose_Include_Static/ ./
 
-      - name: Create report file
-        run: date +%s > ./self/report.txt
-      
-      - name: Commit report
+      # Commit changes      
+      - name: Commit Changes
         run: |
           cd ./self
           git add *
           git config --global user.name 'funkyfranky'
           git config --global user.email 'frank@inter-zone.de'
-          git commit -am "Automated report"
+          git commit -am "Updated Moose.lua"
           git push      
